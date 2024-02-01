@@ -1,5 +1,5 @@
-const db = require('../db');
 const { calcularDistancia } = require('../utils/distancia');
+const db = require('../db');
 
 //Serviço de rota
 
