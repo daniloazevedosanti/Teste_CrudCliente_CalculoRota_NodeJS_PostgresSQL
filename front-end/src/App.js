@@ -39,14 +39,12 @@ function App() {
     return (
         <div className="container mt-4 mb-5">
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4">
-                <h1>Clientes</h1>
-                <button className="btn btn-primary" onClick={() => setExibirCadastro(true)}>+ Cliente</button>
+                <button className="btn btn-info" onClick={() => setExibirCadastro(true)}>Novo Cliente</button>
             </div>
             <CadastroCliente exibir={exibirCadastro} onFechar={handleFecharCadastro} />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4">
-            <h2 className="mt-4">Calcular Rota </h2>
-            <button className="btn btn-primary" onClick={() => setExibirRota(true)}>Calcular</button>
+            <button className="btn btn-danger" onClick={() => setExibirRota(true)}>Calcular Rota</button>
             <RotaOtimizada exibir={exibirRota} onFechar={() => setExibirRota(false)} />
             </div>
 
