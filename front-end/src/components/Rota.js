@@ -6,13 +6,14 @@ import axios from 'axios';
 
 export default function RotaOtimizada({ exibir, onFechar }) {
     const [rotaOtimizada, setRotaOtimizada] = useState([]);
+    const [distancia, setDistancia] = useState([]);
     const [carregandoRegistros, setCarregandoRegistros] = useState(false);
 
     useEffect(() => {
         if (!exibir) return;
         setCarregandoRegistros(true);
         axios.get(`${process.env.REACT_APP_API_BASE_URL}/calcular-rota`)
-            .then(response => setRotaOtimizada(response.data.rota))
+            .then(response =>{ setRotaOtimizada(response.data.rota); setDistancia(response.data.distancia);})
             .catch(error => console.error(error))
             .finally(() => setCarregandoRegistros(false));
     }, [exibir])
@@ -33,6 +34,7 @@ export default function RotaOtimizada({ exibir, onFechar }) {
                         {rotaOtimizada.map(cliente => (
                             <li key={cliente.id} className="list-group-item"><strong>{i++}.</strong> {cliente.nome} [{cliente.coordenada_x}, {cliente.coordenada_y}]</li>
                         ))}
+                        <li key='distancia' className="list-group-item"> - Distância Total: {distancia.toFixed(2)} </li>
                     </ul>
                 ) : (
                     <p className="text-center my-5 h4">Não há clientes para listar</p>
