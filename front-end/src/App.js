@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import ClienteData from './components/ClienteData';
-import CadastroCliente from './components/Cliente';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Rota from './components/Rota';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importar os estilos do Bootstrap
 import './App.css';
+import CadastroCliente from './components/Cliente';
+import ClienteData from './components/ClienteData';
+import RotaOtimizada from './components/Rota';
 
 function App() {
     const [clientes, setClientes] = useState([]);
@@ -38,17 +38,17 @@ function App() {
 
     return (
         <div className="container mt-4 mb-5">
-            <div className="d-flex d-flex-row justify flex-wrap flex-md-nowrap align-items-center mb-4">
+            <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4">
                 <h1>Clientes</h1>
-                <button className="btn btn-primary" onClick={() => setExibirCadastro(true)}>Novo Cliente</button>
+                <button className="btn btn-primary" onClick={() => setExibirCadastro(true)}>+ Cliente</button>
             </div>
             <CadastroCliente exibir={exibirCadastro} onFechar={handleFecharCadastro} />
 
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4">
-                <h1>Rota</h1>
-                <button className="btn btn-primary" onClick={() => setExibirRota(true)}>Calcular Rota</button>
+            <h2 className="mt-4">Calcular Rota </h2>
+            <button className="btn btn-primary" onClick={() => setExibirRota(true)}>Calcular</button>
+            <RotaOtimizada exibir={exibirRota} onFechar={() => setExibirRota(false)} />
             </div>
-            <Rota exibir={exibirRota} onFechar={() => setExibirRota(false)} />
 
             <div className="row justify-content-end mb-3">
                 <div className="col-lg-4">
@@ -63,8 +63,6 @@ function App() {
                     </div>
                 </div>
             </div>
-
-            <h2>Lista de Clientes</h2>
             {carregandoRegistros ? (
                 <div className="text-center h4 my-5">
                     Aguarde...
@@ -77,10 +75,10 @@ function App() {
                 </ul>
             ) : (
                 <div className="text-center h4 my-5">
-                    Nenhum dado.
+                    Nenhum cliente para listar.
                 </div>
             )}
-            
+
         </div>
     );
 }

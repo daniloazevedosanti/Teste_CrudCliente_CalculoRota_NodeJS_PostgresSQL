@@ -1,4 +1,3 @@
-const { calcularDistancia } = require('../utils/distancia');
 const db = require('../db');
 
 //Serviço de rota
@@ -7,7 +6,7 @@ const calcularRota = async (req, res) => {
     try {
         const filtro = req.query.cliente || [];
         
-        let query = 'SELECT * FROM clientes WHERE coordenadaX IS NOT NULL AND coordenadaY IS NOT NULL';
+        let query = 'SELECT * FROM clientes WHERE coordenada_x IS NOT NULL AND coordenada_y IS NOT NULL';
         const values = [];
 
         if (filtro.length > 0) {
@@ -22,7 +21,7 @@ const calcularRota = async (req, res) => {
         const n = clientes.length;
         const noVisitado = new Array(n).fill(false);
         const rota = [];
-        const coordenadasEmpresa = { coordenadaX: 0, coordenadaY: 0 };
+        const coordenadasEmpresa = { coordenada_x: 0, coordenada_y: 0 };
         let distancia = 0;
 
         let currentCliente = coordenadasEmpresa;
@@ -54,6 +53,10 @@ const calcularRota = async (req, res) => {
         console.error(error);
         res.status(400).json({ error: 'Erro! Verifique o cálculo de rota' });
     }
+};
+
+const calcularDistancia = (point1, point2) => {
+    return Math.sqrt((point1.coordenada_x - point2.coordenada_x) ** 2 + (point1.coordenada_y - point2.coordenada_y) ** 2);
 };
 
 module.exports = {

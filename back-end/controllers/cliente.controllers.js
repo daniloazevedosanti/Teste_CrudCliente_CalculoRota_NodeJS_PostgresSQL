@@ -1,10 +1,11 @@
 const db = require('../db');
+const Cliente = require("../models/Cliente");
 
 //CRUD Clientes
 
 const listar = async (req, res) => {
     const { nome, email, telefone } = req.query;
-    console.log({ nome, email, telefone });
+    const clienteReq = new Cliente(nome, email, telefone);
     try {
         const { rows } = await db.query('SELECT * FROM clientes');
         res.json(rows);
@@ -44,13 +45,14 @@ const buscar = async (req, res) => {
 
 const cadastrar = async (req, res) => {
     const { nome, email, telefone, coordenadaX, coordenadaY } = req.body;
-   
+    const clienteReq = new Cliente(nome, email, telefone, coordenadaX, coordenadaY);
+    console.log(clienteReq);
     let validacaoReg = validacao(nome, email, telefone, coordenadaX, coordenadaY);
 
     if ( validacaoReg !== null) return res.status(400).json({ error: validacaoReg });
 
     try {
-        await db.query('INSERT INTO clientes (nome, email, telefone, coordenadaX, coordenadaY) VALUES ($1, $2, $3, $4, $5)', [nome, email, telefone, coordenadaX === '' ? null : coordenadaX,  coordenadaY === '' ? null : coordenadaY]);
+        await db.query('INSERT INTO clientes (nome, email, telefone, coordenada_x, coordenada_y) VALUES ($1, $2, $3, $4, $5)', [nome, email, telefone, coordenadaX === '' ? null : coordenadaX,  coordenadaY === '' ? null : coordenadaY]);
         res.status(201).json({ message: 'Cliente cadastrado com sucesso' });
     } catch (error) {
         console.error(error);
