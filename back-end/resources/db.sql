@@ -3,8 +3,8 @@ CREATE TABLE clientes (
   nome VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   telefone VARCHAR(20) NOT NULL,
-  coordenadax FLOAT,
-  coordenaday FLOAT,
+  coordenada_x FLOAT,
+  coordenada_y FLOAT,
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   excluido_em TIMESTAMP
 );
